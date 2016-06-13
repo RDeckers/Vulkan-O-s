@@ -1,0 +1,3 @@
+Maybe make the VkResult checking, in places, optional? Like Vulkan itself does with layers. And/Or use exceptions for proper handling in functions
+that have to return values.
+How to handle dynamic linking against global functions?
