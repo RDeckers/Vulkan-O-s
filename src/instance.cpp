@@ -2,7 +2,7 @@
 #include <utilities/logging.h>
 
 namespace vkos{
-  Instance::init(const VkInstanceCreateInfo *create_info, const VkAllocationCallbacks *allocator){
+  void Instance::init(const VkInstanceCreateInfo *create_info, const VkAllocationCallbacks *allocator){
     report(INFO, "initing with %p, %p", create_info, allocator);
     if(VK_SUCCESS == (m_result = vkos::vkCreateInstance(create_info, allocator, &m_instance))){
       report(PASS, "succes!");

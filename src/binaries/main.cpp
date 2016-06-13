@@ -8,6 +8,7 @@
 using namespace vkos;
 int main(int argc, const char **argv){
   int REPORT_W_COLORS = 1;
+
   auto extensions = Instance::extensions();
   puts("GLOBAL EXTENSIONS:");
   for(int j = 0; j < extensions.size(); j++){
@@ -51,7 +52,7 @@ int main(int argc, const char **argv){
     report(FAIL, "Could not create Vulkan instance!");
     return -1;
   }
-  
+
   report(PASS, "Created a vulkan instance : %p", instance);
   report(INFO, "Instance contains %u devices", instance.device_count());
   return 0;

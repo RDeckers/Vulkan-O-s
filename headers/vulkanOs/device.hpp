@@ -9,15 +9,15 @@ namespace vkos{
     #define VK_DEVICE_LEVEL_FUNCTION( fun ) PFN_##fun m_##fun = 0;
     #include "ListOfFunctions.inl"
     PFN_vkVoidFunction load_function(const char *function_name);
-    init(const VkDeviceCreateInfo *create_info, const VkAllocationCallbacks *allocator);
+    void init(const VkDeviceCreateInfo *create_info, const VkAllocationCallbacks *allocator);
   public:
-    Instance(const VkDeviceCreateInfo &create_info){
+    Device(const VkDeviceCreateInfo &create_info){
       init(&create_info, nullptr);
     }
-    Instance(const VkDeviceCreateInfo &create_info, const VkAllocationCallbacks &allocator){
+    Device(const VkDeviceCreateInfo &create_info, const VkAllocationCallbacks &allocator){
       init(&create_info, &allocator);
     }
-    ~Instance();
+    ~Device();
     VkResult result(){return m_result;}
     #define VK_DEVICE_LEVEL_FUNCTION( fun ) \
     template<typename... Args>\

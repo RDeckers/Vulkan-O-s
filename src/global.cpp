@@ -1,4 +1,4 @@
-#include "VulkanOs/global.hpp"
+#include "vulkanOs/global.hpp"
 #include <utilities/logging.h>
 #include <algorithm>
 #include <string>
@@ -63,12 +63,12 @@ namespace vkos{
       return -1;
     }else{
       char *error = dlerror();
-      internal_function_pointers::vkGetInstanceProcAddr = dlsym(internal_function_pointers::lib_pointer, "vkGetInstanceProcAddr");
-      error = dlerror()
+      internal_function_pointers::vkGetInstanceProcAddr = (PFN_vkGetInstanceProcAddr) dlsym(internal_function_pointers::lib_pointer, "vkGetInstanceProcAddr");
+      error = dlerror();
       if(NULL != error){
         report(FAIL, "Could not load vkGetInstanceProcAddr: %s", error);
+        return -1;
       }
-      return -1;
     }
     //#else
     //#error I do not know how to load dynamic libraries on this system!
@@ -87,6 +87,7 @@ namespace vkos{
     #else
     //dlclose(lib_pointer);
     #endif
+    report(PASS, "Succesfully inited");
     return 0;
   }
 }

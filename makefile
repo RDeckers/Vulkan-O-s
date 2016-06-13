@@ -40,7 +40,10 @@ BINARIES += $(patsubst $(SRC_DIR)/binaries/%.cpp,$(BIN_DIR)/%$(EXE_SUFFIX),$(wil
 
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(C_FILES))
 OBJ_FILES += $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(CPP_FILES))
-
+ifeq ($(OS),Windows_NT)
+else
+	LD_FLAGS += -ldl
+endif
 LD_FLAGS += -lutilities -L$(INSTALL_LIB_DIR)
 COMMON_COMPILER_FLAGS := -march=native -Ofast -flto -pipe -g -I$(PROJECT_DIR)headers -I$(INSTALL_INCLUDE_DIR) -DVKOS_DYNAMIC
 C_FLAGS += --std=gnu99 $(COMMON_COMPILER_FLAGS)
@@ -72,7 +75,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(PROJECT_DIR)headers/%.hpp
 	@$(call CHK_DIR_EXISTS, $(dir $@))
 	@g++ $(CPP_FLAGS) -o "$@" -c "$<"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(PROJECT_DIR)headers/VulkanOs/%.hpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(PROJECT_DIR)headers/vulkanOs/%.hpp
 	$(call REPORT,Compiling $@)
 	@$(call CHK_DIR_EXISTS, $(dir $@))
 	@g++ $(CPP_FLAGS) -o "$@" -c "$<"

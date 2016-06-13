@@ -9,7 +9,7 @@ namespace vkos{
     #define VK_INSTANCE_LEVEL_FUNCTION( fun ) PFN_##fun m_##fun = 0;
     #include "ListOfFunctions.inl"
     PFN_vkVoidFunction load_function(const char *function_name);
-    init(const VkInstanceCreateInfo *create_info, const VkAllocationCallbacks *allocator);
+    void init(const VkInstanceCreateInfo *create_info, const VkAllocationCallbacks *allocator);
   public:
     Instance(const VkInstanceCreateInfo &create_info){
       init(&create_info, nullptr);
